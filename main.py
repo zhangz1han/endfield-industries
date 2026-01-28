@@ -3,10 +3,10 @@ from endfield_industries import *
 def main():
     # 原料以及每分钟产量
     # Material(名称, 每分钟产量)
-    materials = [
-        Material("源矿", 510),
+    valley_materials = [
+        Material("源矿", 560),
         Material("紫晶矿", 240),
-        Material("蓝铁矿", 760)
+        Material("蓝铁矿", 1080),
     ]
 
     # 配方
@@ -23,10 +23,26 @@ def main():
         Formula("中容谷地电池", 10, 30, [15, 0, 10]),
         Formula("高容谷地电池", 10, 70, [30, 0, 20]),
     ]
-    
-    endfield = EndfieldIndustries(materials)
-    endfield.add_formulas(formulas)
-    endfield.solve()
+
+    valley = Area("四号谷地", valley_materials)
+    valley.formulas += formulas
+    valley.solve()
+
+    wuling_materials = [
+        Material("源矿", 290),
+        Material("紫晶矿", 0),
+        Material("蓝铁矿", 90),
+        Material("息壤", 60),
+    ]
+
+    formulas += [
+        Formula("低容武陵电池", 10, 25, [30, 0, 0, 5]),
+        Formula("芽针针剂", 10, 16, [0, 0, 20, 0]),
+    ]
+
+    wuling = Area("武陵", wuling_materials)
+    wuling.formulas += formulas
+    wuling.solve()
 
 if __name__ == "__main__":
     main()
